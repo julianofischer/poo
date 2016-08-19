@@ -1,6 +1,6 @@
 {
-  "name": "Poo",
-  "tagline": "",
-  "body": "### Aulas\r\n",
+  "name": "Programação Orientada a Objetos",
+  "tagline": "Professor Juliano Fischer Naves",
+  "body": "### Aulas\r\n[Aula 1: paradigmas de programação](aula1-paradigmas.html)",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
