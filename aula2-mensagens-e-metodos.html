@@ -209,7 +209,7 @@ class NomeClasse {
 					<h2>Exemplo</h2>
 					<pre><code class="java" data-trim>
 class Quadrado {
-    int tamanhoDoLado
+    int tamanhoDoLado;
     Quadrado(int l){
        tamanhoDoLado = l;
     }
@@ -217,10 +217,10 @@ class Quadrado {
     
     }
     int area(){
-        return l*l;
+        return tamanhoDoLado*tamanhoDoLado;
     }
     int perimetro(){
-	return l*4;
+	return tamanhoDoLado*4;
     }
     public static void main(String args[]){
 	Quadrado q = new Quadrado(10);
