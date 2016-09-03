@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Programação Orientada a Objetos</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			function init()
+			{
+				var canvas = document.getElementById("canvas");
+				if(canvas.getContext){
+					var ctx = canvas.getContext("2d");
+					// Draw triangle
+					ctx.fillStyle="#A2322E";
+					ctx.beginPath();
+					// Draw a triangle location for each corner from x:y 100,110 -> 200,10 -> 300,110 (it will return to first point)
+					ctx.moveTo(275,110);
+					ctx.lineTo(375,10);
+					ctx.lineTo(475,110);
+					ctx.closePath();
+					ctx.fill();
+				}
+			}
+			onload=init;
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Programação Orientada a Objetos</h1>
+					<h3>Herança</h3>
+					<p>
+						<small>Professor: Juliano Fischer Naves / <a href="mailto:juliano.naves@ifro.edu.br">juliano.naves@ifro.edu.br</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Herança</h2>
+					<blockquote>É o mecanismo pelo qual uma classe (sub-classe) pode estender outra classe (super-classe), aproveitando seus comportamentos (métodos) e características possı́veis (atributos)</blockquote>
+				</section>
+
+				<section>
+					<h2>Herança</h2>
+					<ul>
+					    <li class="fragment">Permite que elementos mais especı́ficos incorporem a estrutura e o comportamento de elementos mais genéricos</li>
+					    <li class="fragment">Frequentemente um objeto de uma determinada classe também é um objeto de outra classe.</li>
+					    <li class="fragment">Reutilização de atributos e métodos de uma classe por outra classe</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Herança</h2>
+					<ul>
+					    <li class="fragment">Classes que herdam atributos/métodos possuem apenas os atributos ou métodos que apenas ela deve possuir (atributos especı́ficos)</li>
+					    <li class="fragment">Exemplo: estudante e funcionário</li>
+					    <ul>
+					        <li class="fragment">Ambos possuem atributos como nome, idade e CPF</li>
+					        <li class="fragment">Mas e quanto aos atributos curso e salário?</li>
+					    </ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Herança</h2>
+					<ul>
+					    <li class="fragment">Se uma classe A herda atributos e métodos da classe B, dizemos que:</li>
+					    <ul>
+					        <li class="fragment">A é subclasse (ou classe-filha) de B</li>
+					        <li class="fragment">B é superclasse (ou classe-mãe) de A</li>
+					    </ul>
+					    <li class="fragment">Assim a classe existente é chamada de <em style="color:red">superclasse</em> e a nova classe de <em style="color:red">subclasse</em>.</li>
+					</ul>
+					
+				</section>
+
+				<section>
+					<h2>Herança</h2>
+					<h3 style="color:blue">Vantagens</h3>
+					<ul>
+					    <li class="segment">Diminui a quantidade de código através da reutilização de elementos</li>
+					    <li class="segment">Traz maior integridade e facilidade de manutenção</li>
+					    <li class="segment">Permite que alterações no código de uma classe mãe sejam compartilhadas com todos os seus herdeiros, sem a necessidade de reprogramação</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Hierarquia de Classes</h2>
+					<img src="imgs/hierarquia.jpg" alt="Hierarquia e classes" width="95%">
+				</section>
+
+				<section>
+					<h2>Hierarquia de Classes</h2>
+					<ul>
+					    <li>Toda subclasse pode vir a tornar-se uma superclasse para futuras subclasses</li>
+					    <li>A <b>superclasse direta</b> é aquela a partir do qual a subclasse herda explicitamente, uma <b>superclasse indireta</b> é qualquer superclasse acima da classe direta na hierarquia de classes</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>extends</h2>
+					<ul>
+					    <li>A palavra reservada extends indica que a classe a ser especificada herda de uma outra classe</li>
+					    <li>Uma sub-classe tem acesso aos atributos e métodos definidos com visibilidade <em style="color:blue">public</em> e <em style="color:blue">protected</em>, mas não <em style="color:red">private</em>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<pre style="max-height:620px;font-size:100%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+//Passaro.java
+public class Passaro extends Animal{
+    ...
+}
+
+//Papagaio.java
+public class Papagaio extends Passaro{
+    ...
+}
+
+//Cachorro.java
+public class Cachorro extends Mamifero{
+    ...
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>super()</h2>
+					<ul>
+					    <li>A palavra reservada <em style="color:blue">super</em> é utilizada para chamar um método construtor da superclasse</li>
+					    <li class="fragment"><em style="color:red">A invocação de um método construtor da superclasse deve ser a primeira linha do método construtor da subclasse</em></li>
+					</ul>
+				</section>
+
+				<section>
+					<pre style="max-height:620px;font-size:100%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+public class Animal{
+    public Animal(){
+    
+    }
+}
+
+//Passaro.java
+public class Passaro extends Animal{
+    public Passaro(){
+        super();
+    }    
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<pre style="max-height:620px;font-size:100%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+public class Animal{
+    protected String nome;
+    public Animal(String n){
+        nome = n;
+    }
+}
+
+//Passaro.java
+public class Passaro extends Animal{
+    public Passaro(String r){
+        super(r);
+    }    
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<pre style="max-height:620px;font-size:100%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+public class Animal{
+    protected String nome;
+    public Animal(String n){
+        nome = n;
+    }
+}
+
+//Passaro.java
+public class Passaro extends Animal{
+    public Passaro(String r){
+        super("Um nome qualquer");
+    }    
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Exercícios</h2>
+					<h3 class="fragment" style="color:blue">Um ou mais métodos construtores!</h3>
+					<h3 class="fragment" style="color:blue">Atributos encapsulados!</h3>
+					<h3 class="fragment" style="color:blue">Classe de teste!</h3>
+				</section>
+
+				<section>
+					<h2>Exercício 1</h2>
+					<ul>
+					    <li>Classe Empregado</li>
+					    <ul>
+					        <li>Nome, CPF, RG, Nº carteira de trabalho, salário (hora), horas trabalhadas no mês</li>
+						<li>Método calcularSalario: calcula o salário mensal baseado no número de dias que o empregado trabalhou</li>
+					    </ul>
+					    <li>Classe Operario</li>
+					    <ul>
+					        <li>Subclasse de empregado + atributo comissao</li>
+						<li>Escrever método que calcule o salário do operário (calcularSalario + comissão)</li>
+					    </ul>
+					</ul>
+<!-- Suponha uma classe Empregado, que possui como atributos Nome, CPF, RG, Numero da Carteira de Trabalho, Salário, e horas trabalhadas em um mês. Suponha que esta classe tenha um método calcularSalario, que calcula o salário do mês de um empregado, baseado no número de dias que ele trabalhou neste mês. Implemente a classe Operario como subclasse desta classe Empregado. Um determinado operário tem como atributos, além dos atributos da classe Empregado, o atributo valorProducao e comissão. Note que na subclasse o método herdado calcularSalario (o salário de um operário é equivalente ao salário de um empregado usual acrescido da referida comissão) deverá ser redefinido. Escreva um programa de teste adequado para essa classe. -->
+				</section>
+	
+				<section>
+					<h2>Exercício 2</h2>
+					<ul>
+					    <li>Classe ContaPoupança</li>
+					    <ul>
+					        <li>Subclasse de conta</li>
+					        <li>Método calculaRendimento (recebe a taxa de rendimento e adiciona ao saldo)</li>
+					    </ul>
+					    <li>Classe ContaEspecial</li>
+					    <ul>
+					        <li>Subclasse de conta</li>
+					        <li>Valor de limite</li>
+					        <li>Deve ser possível sacar até o valor do limite</li>
+					    </ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Exercício 3 (Entregar)</h2>
+					<ul>
+					    <li>FiguraGeometrica</li>
+					    <ul>
+					        <li>Atributos: cor, estaPreenchida (boolean)</li>
+					    </ul>
+					    <li>Circulo (subclasse de FiguraGeometrica)</li>
+					    <ul>
+					        <li>raio</li>
+					        <li>calcArea, calcDiametro, calcCircunferencia</li>
+					    </ul>
+					    <li>Retângulo (subclasse de FiguraGeometrica)</li>
+					    <ul>
+					        <li>base, altura</li>
+					        <li>calcArea, calcPerimetro</li>
+					    </ul>
+					    <li style="color:red" class="fragment">Escreva uma classe de teste</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Links</h2>
+					<ul>
+					    <li><a href="https://www.caelum.com.br/apostila-java-orientacao-objetos/heranca-reescrita-e-polimorfismo/">Herança, reescrita e polimorfismo</a></li>
+					    <li><a href="http://www.devmedia.com.br/entendendo-e-aplicando-heranca-em-java/24544">Entendendo e aplicando herança em Java</a></li>
+					    <li><a href="http://www.tiexpert.net/programacao/java/heranca.php">TI Expert - Herança</a></li>
+					    <li><a href="http://www.inf.pucrs.br/flash/lapro2/aula_heranca/">Herança e classes abstratas</a></li>
+					    <li><a href="https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html">Inheritance</a></li>
+					    <li><a href="https://docs.oracle.com/javase/tutorial/java/concepts/inheritance.html">What is inheritance?</a></li>
+					    <li><a href="http://www.tutorialspoint.com/java/java_inheritance.htm">Java inheritance</a></li>
+					    <li><a href="https://docs.oracle.com/javase/tutorial/java/IandI/super.html">Using the keyword super</a></li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Agradecimentos</h2>
+					<ul>
+					    <li>Professor Raphael de Souza Rosa Gomes (UFMT)</li>
+					    <li>Professora Karen Figueiredo (UFMT)</li>
+					</ul>
+				</section>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				slideNumber: true,
+				center: false,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
