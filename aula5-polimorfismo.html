@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Programação Orientada a Objetos</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			function init()
+			{
+				var canvas = document.getElementById("canvas");
+				if(canvas.getContext){
+					var ctx = canvas.getContext("2d");
+					// Draw triangle
+					ctx.fillStyle="#A2322E";
+					ctx.beginPath();
+					// Draw a triangle location for each corner from x:y 100,110 -> 200,10 -> 300,110 (it will return to first point)
+					ctx.moveTo(275,110);
+					ctx.lineTo(375,10);
+					ctx.lineTo(475,110);
+					ctx.closePath();
+					ctx.fill();
+				}
+			}
+			onload=init;
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Programação Orientada a Objetos</h1>
+					<h3>Sobrecarga, Sobrescrita e Polimorfismo</h3>
+					<p>
+						<small>Professor: Juliano Fischer Naves / <a href="mailto:juliano.naves@ifro.edu.br">juliano.naves@ifro.edu.br</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Roteiro</h2>
+					<ul>
+						<li>Sobrecarga de métodos</li>
+						<li>Sobrescrita de métodos</li>
+						<li>Polimorfismo</li>
+						<li>Vinculação dinâmica</li>
+						<li>Casting</li>
+						<li>instanceof</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Sobrecarga de métodos</h2>
+					<blockquote>Quando dois ou mais métodos em uma mesma classe possuem o mesmo nome</blockquote>
+					<ul>
+						<li>Assinaturas distintas</li>
+						<ul><li>Nome e lista de parâmetros</li>
+						    <li style="color:red" class="fragment">Tipo de retorno não faz parte da assinatura</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Sobrecarga de métodos</h2>
+					<pre style="max-height:620px;font-size:70%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+public class ClasseTeste{
+    ...
+    //signature: imprimir(String)
+    public void imprimir(String s){
+	System.out.println(s);
+    }
+
+    //signature: imprimir(String, int)
+    public void imprimir(String s, int i){
+	System.out.println(s);
+	System.out.println(i);
+    }
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Sobrescrita de métodos</h2>
+					<blockquote>Quando um método de uma superclasse é redefinido em uma subclasse</blockquote>
+					<ul>
+					    <li>Na sobrescrita, os métodos (da superclasse e da subclasse) devem:</li>
+					    <ul>
+   					         <li>ter a mesma assinatura</li>
+   					         <li>método que sobrescreve (subclasse) não deve restringir o grau de acessibilidade do método sobrescrito (superclasse). Ex: um método protected não pode ser sobrescrito por um método private.</li>
+                                            </ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Sobrescrita</h2>
+					<pre style="max-height:620px;font-size:60%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+public class Animal(){
+   ...
+   public void fala(){
+	System.out.println("Um animal");
+   }
+}
+
+public class Cachorro(){
+   ...
+   public void fala(){
+	System.out.println("Au au");
+   }
+}
+
+public static void main (String args[]){
+    Animal a = new Animal();
+    a.fala();
+    Cachorro c = new Cachorro();
+    c.fala();
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Polimorfismo</h2>
+					<blockquote>É o princı́pio pelo qual duas ou mais classes derivadas de uma mesma superclasse podem invocar métodos com a mesma assinatura, mas com comportamentos distintos, especializados para cada subclasse</blockquote>
+					<ul>
+						<li>Múltiplas formas</li>
+						<li>A habilidade de um objeto ter várias formas</li>
+					</ul>					
+				</section>
+
+				<section>
+					<pre style="max-height:620px;font-size:70%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+//Animal.java
+public class Animal{
+    ...
+}
+
+//Cachorro.java
+public class Cachorro extends Animal{
+    ...
+}
+
+//Gato.java
+public class Gato extends Animal{
+    ...
+}
+
+public static void main(String args[]){
+    Animal a = new Animal(); 
+    a = new Cachorro(); //Cachorro é um animal
+    a = new Gato(); //Gato é um animal
+}
+
+					</code></pre>
+</section>
+
+				<section>
+					<h2>Vinculação Dinâmica</h2>
+					<blockquote>Quando o tipo do objeto é definido em tempo de execução</blockquote>
+					<ul>
+					    <li>Dynamic Binding</li>
+					    <li>Late Binding: vinculação tardia</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Vinculação Dinâmica</h2>
+					<pre style="max-height:620px;font-size:60%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+public class Animal(){
+   public void fala(){
+       System.out.println("Um animal");
+   }
+}
+
+public class Cachorro(){
+   public void fala(){
+       System.out.println("Au au");
+   }
+}
+
+public class Gato(){
+   public void fala(){
+       System.out.println("Miau");
+   }
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<pre style="max-height:620px;font-size:70%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+import java.util.Random;
+
+public class Teste{
+    public static void main(String args[]){
+        Random randomGen = new Random();
+	Animal a;
+	for (int i=0; i<10; i++){
+            if (i==0){
+                a = new Cachorro();
+            }else{
+                a = new Gato();
+            }
+            a.fala(); // O que vai imprimir?
+        }
+    }
+}
+
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Casting</h2>
+					<blockquote>Utilizado para converter um objeto ou tipo primitivo de uma classe/tipo para outro</blockquote>
+					<ul>
+					    <li class="fragment" style="color:red">Conversão de tipos</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Casting de tipos primitivos</h2>
+					<ul>
+					    <li>Casting explícito: com possível perda de precisão</li>
+					    <li>Casting implícito: sem perda de precisão</li>
+					</ul>
+					<pre style="max-height:620px;font-size:70%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+int i = 20;
+double d;
+d = i; //cast implícito
+
+d = 20.99;
+i = (int) d; //cast explícito 
+             //(possível perda de precisão)
+
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Casting de tipos primitivos</h2>
+					<img src="imgs/casting.jpg" alt="Tabela de casting de tipos primitivos" width="95%">
+				</section>
+
+				<section>
+					<h2>Casting de objetos</h2>
+					<pre style="max-height:620px;font-size:90%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+Animal a;
+Gato g  = new Gato();
+Cachorro c = new Cachorro();
+
+a = g; //cast implícito
+a = c; //cast implícito
+
+Cachorro c2 = a; //cast explícito
+Gato c2 = a; //cast explícito
+             //possibilidade de ClassCastException
+
+					</code></pre>
+				</section>
+
+
+
+				<section>
+					<h2>instanceof</h2>
+					<ul>
+					    <li>Utilizado para determinar o tipo de um objeto em tempo de execução</li>
+					    <li>Utilização: refAoObjeto instanceof NomeClasse</li>
+					</ul>
+				</section>
+
+				<section>
+					<pre style="max-height:620px;font-size:90%;"><code class="java" style="max-height:620px" data-trim data-noescape>
+Animal a = new Animal();
+Gato g  = new Gato();
+Cachorro c = new Cachorro();
+a instanceof Animal   //true
+a instanceof Gato     //false
+a instanceof Cachorro //false
+
+g instanceof Animal   //true
+g instanceof Gato     //true
+g instanceof Cachorro //false
+
+c instanceof Animal   //true
+c instanceof Gato     //false
+c instanceof Cachorro //true
+					</code></pre>
+				</section>
+	
+				<section>
+					<h2>Exercício 1</h2>
+					<ul>
+					    <li>Classe Ponto3D</li>
+					    <ul>
+					        <li>Subclasse da classe Ponto</li>
+					        <li>Sobrescreva o método calcular distância</li>
+					    </ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Exercício 2 (Entregar)</h2>
+					<ul>
+					    <li>FiguraGeometrica</li>
+					    <li>Circulo (subclasse de FiguraGeometrica)</li>
+					    <li>Retângulo (subclasse de FiguraGeometrica)</li>
+					    <li style="color:red" class="fragment">Escreva uma classe de teste que demonstre os conceitos de vinculação dinâmica.</li>
+		                            <li style="color:red" class="fragment">Certifique-se de sobrescrever os métodos apropriados.</li>
+					    <li style="color:red" class="fragment">Utilize cast implícito e explícito.</li>
+                                            <li style="color:red" class="fragment">Utilize instanceof.</li> 
+		                        </ul>
+				</section>
+
+				<section>
+					<h2>Links</h2>
+					<ul>
+					    <li><a href="http://www.devmedia.com.br/aprendendo-sobre-casting-para-scjp/8319">Aprendendo sobre Casting</a></li>
+					    <li><a href="http://www.diogomatheus.com.br/blog/orientacao-a-objetos/entendendo-casting-implicio-e-explicito/">Entendendo casting implícito e explícito</a></li>
+					    <li><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ClassCastException.html">ClassCastException</a></li>
+					    <li><a href="https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html">Polymorphism</a></li>
+					    <li><a href="http://www.tutorialspoint.com/java/java_polymorphism.htm">Java - Polymorphism</a></li>
+					    <li><a href="https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html">Definindo métodos</a></li>
+					    <li><a href="http://www.javatpoint.com/static-binding-and-dynamic-binding">Static binding e dynamic binding</a></li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Agradecimentos</h2>
+					<ul>
+					    <li>Professor Raphael de Souza Rosa Gomes (UFMT)</li>
+					    <li>Professora Karen Figueiredo (UFMT)</li>
+					</ul>
+				</section>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				slideNumber: true,
+				center: false,
+
+				transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
