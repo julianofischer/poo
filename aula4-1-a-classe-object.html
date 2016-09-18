@@ -1,0 +1,161 @@
+<!doctype html>
+<!-- TODO: class object -->
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Programação Orientada a Objetos</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			function init()
+			{
+				var canvas = document.getElementById("canvas");
+				if(canvas.getContext){
+					var ctx = canvas.getContext("2d");
+					// Draw triangle
+					ctx.fillStyle="#A2322E";
+					ctx.beginPath();
+					// Draw a triangle location for each corner from x:y 100,110 -> 200,10 -> 300,110 (it will return to first point)
+					ctx.moveTo(275,110);
+					ctx.lineTo(375,10);
+					ctx.lineTo(475,110);
+					ctx.closePath();
+					ctx.fill();
+				}
+			}
+			onload=init;
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Programação Orientada a Objetos</h1>
+					<h3>A classe Object</h3>
+					<p>
+						<small>Professor: Juliano Fischer Naves / <a href="mailto:juliano.naves@ifro.edu.br">juliano.naves@ifro.edu.br</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Classe Object</h2>
+					<blockquote>É a raíz da hierarquia de classes em Java. Toda classe é uma subclasse de Object.</blockquote>
+					<p style="color:red" class="fragment">Mesmo se não usarmos "extends Object"</p>
+				</section>
+
+				<section>
+					<img src="imgs/classes-object.gif" alt="Clase Object" width="95%">
+				</section>
+
+
+				<section>
+					<h2 style="text-transform:none">getClass()</h2>
+					<ul>
+						<li>Retorna a classe do objeto (em tempo de execução)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2 style="text-transform:none">equals()</h2>
+					<ul>
+						<li>Indica se algum outro objeto é igual a este</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2 style="text-transform:none">clone()</h2>
+					<ul>
+						<li>Retorna uma cópia deste objeto</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2 style="text-transform:none">equals()</h2>
+					<ul>
+						<li>Indica se algum outro objeto é igual a este</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2 style="text-transform:none">toString()</h2>
+					<ul>
+						<li>Retorna uma String que é uma representação do objeto</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2 style="text-transform:none">hashCode()</h2>
+					<ul>
+						<li>Retorna um inteiro único de cada objeto. Veja <a href="http://docs.oracle.com/javase/7/docs/api/java/util/HashMap.html">HashMap.</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Links</h2>
+					<ul>
+					    <li><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html">Class Object (javadoc)</a></li>
+					    <li><a href="http://www.devmedia.com.br/java-object-class-entendendo-a-classe-object/30513">Entendendo a classe Java Object</a></li>
+					    <li><a href="http://www.javaprogressivo.net/2012/10/A-classe-Object--o-que-e-uso-e-principais-metodos.html">A classe Object: o que é e principais métodos.</a></li>
+					</ul>
+				</section>
+				
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				slideNumber: true,
+				center: false,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

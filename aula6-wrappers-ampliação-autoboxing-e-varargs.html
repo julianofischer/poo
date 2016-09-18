@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Programação Orientada a Objetos</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			function init()
+			{
+				var canvas = document.getElementById("canvas");
+				if(canvas.getContext){
+					var ctx = canvas.getContext("2d");
+					// Draw triangle
+					ctx.fillStyle="#A2322E";
+					ctx.beginPath();
+					// Draw a triangle location for each corner from x:y 100,110 -> 200,10 -> 300,110 (it will return to first point)
+					ctx.moveTo(275,110);
+					ctx.lineTo(375,10);
+					ctx.lineTo(475,110);
+					ctx.closePath();
+					ctx.fill();
+				}
+			}
+			onload=init;
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Programação Orientada a Objetos</h1>
+					<h3>Wrappers de tipos primitivos, Ampliação, Autoboxing e Varargs</h3>
+					<p>
+						<small>Professor: Juliano Fischer Naves / <a href="mailto:juliano.naves@ifro.edu.br">juliano.naves@ifro.edu.br</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Ampliação</h2>
+					<ul>
+						<blockquote>É o processo de colocar um tipo primitivo menor em um tipo primitivo maior (ou ampliado)</blockquote>
+					</ul>
+				</section>
+
+				<section>
+<pre style="font-size:200%";><code class="java" data-trim data-noescape style="max-height:620px">
+byte b = 1;
+short s = b;
+long l = s;
+float f  = 1.0f;
+double d = f;</code>
+</pre>
+				</section>
+
+				<section>
+					<h2>Wrappers de Tipos Primitivos</h2>
+					<ul>
+						<li>"Envolvem" tipos primitivos, adicionando métodos</li>
+						<li>Tipos primitivos podem ser utilizdos como objetos</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Wrappers de Tipos Primitivos</h2>
+					<ol>
+						<li>Byte</li>
+						<li>Short</li>
+						<li>Integer</li>
+						<li>Long</li>
+						<li>Float</li>
+						<li>Double</li>
+						<li>Character</li>
+						<li>Boolean</li>
+					</ol>
+				</section>
+				
+				<section>
+<table border="1" summary="Esta tabela exibe associa wrappers de tipos primitivos e seus wrappers">
+<!--<caption style="font-weight: bold" id="accesscontrol-levels">Wrappers de Tipos Primitivos</caption>-->
+<tr>
+<th id="h1"></th>
+<th id="h2">Tipo Primitivo</th>
+<th id="h3">Classe Wrapper</th>
+<th id="h4">Superclasse</th>
+</tr>
+<tr>
+<td headers="h1">Lógico</td>
+<td headers="h2">boolean</td>
+<td headers="h3">Boolean</td>
+<td headers="h4">Object</td>
+</tr>
+<tr>
+<td headers="h1">Caractere</td>
+<td headers="h2">char</td>
+<td headers="h3">Character</td>
+<td headers="h4">Object</td>
+</tr>
+<tr>
+<td headers="h1">Inteiro</td>
+<td headers="h2">byte</td>
+<td headers="h3">Byte</td>
+<td headers="h4">Number</td>
+</tr>
+<tr>
+<td headers="h1">Inteiro</td>
+<td headers="h2">short</td>
+<td headers="h3">Short</td>
+<td headers="h4">Number</td>
+</tr>
+<tr>
+<td headers="h1">Inteiro</td>
+<td headers="h2">int</td>
+<td headers="h3">Short</td>
+<td headers="h4">Integer</td>
+</tr>
+<tr>
+<td headers="h1">Inteiro</td>
+<td headers="h2">long</td>
+<td headers="h3">Long</td>
+<td headers="h4">Number</td>
+</tr>
+<tr>
+<td headers="h1">Ponto Flutuante</td>
+<td headers="h2">float</td>
+<td headers="h3">Float</td>
+<td headers="h4">Number</td>
+</tr>
+<tr>
+<td headers="h1">Ponto Flutuante</td>
+<td headers="h2">double</td>
+<td headers="h3">Double</td>
+<td headers="h4">Number</td>
+</tr>
+</table>
+				</section>
+
+				<section>
+					<h2>Autoboxing</h2>
+					<ul>
+						<blockquote>É o processo de tornar um tipo primitivo em uma classe Wrapper e vice-versa</blockquote>
+					</ul>
+					<p style="color:red" class="fragment">Não é possível a ampliação de um wrapper.</p>
+				</section>
+
+				<section>
+<pre style="font-size:200%"><code class="java" data-trim data-noescape style="max-height:620px">
+int a = 5;
+Integer x = 5;
+x = a;
+Double d = 5.0;
+Float f = 5.0f;
+d = f; //erro
+</code>
+</pre>				</section>
+
+<section>
+<pre style="font-size:60%"><code class="java" data-trim data-noescape style="max-height:200%">
+  public class EasyOver {
+      public void go(int x) {
+          System.out.println("int ");
+      }
+      public void go(long x) {
+          System.out.println("long ");
+      }
+      public void go(double x) {
+          System.out.println("double ");
+      }
+      public static void main(String[] args) {
+          byte b = 5;
+          short s = 5;
+          long l = 5;
+          float f = 5.0f;
+          EasyOver eo = new EasyOver();
+          eo.go(b);
+          eo.go(s);
+          eo.go(l);
+          eo.go(f);
+	  //O que será impresso?
+      }
+  }
+</code></pre>
+</section>
+
+<section>
+	<h2>Resposta</h2>
+	<p style="color:red">Fará a ampliação para o tipo diretamente "superior" (maior)</p>
+<pre style="font-size:150%"><code class="java" data-trim data-noescape style="max-height:200%">
+int
+int
+long
+double
+</code></pre>
+</section>
+
+<section>
+<pre style="font-size:60%"><code class="java" data-trim data-noescape style="max-height:200%">
+  public class EasyOver {
+      public void go(int x) {
+          System.out.println("int ");
+      }
+      /*public void go(long x) {
+          System.out.println("long ");
+      }*/
+      public void go(double x) {
+          System.out.println("double ");
+      }
+      public static void main(String[] args) {
+          byte b = 5;
+          short s = 5;
+          long l = 5;
+          float f = 5.0f;
+          EasyOver eo = new EasyOver();
+          eo.go(b);
+          eo.go(s);
+          eo.go(l);
+          eo.go(f);
+	  //O que será impresso?
+      }
+  }
+</code></pre>
+</section>
+
+<section>
+	<h2>Resposta</h2>
+	<p style="color:red">Fará a ampliação para o tipo diretamente "superior" (maior)</p>
+<pre style="font-size:150%"><code class="java" data-trim data-noescape style="max-height:200%">
+int
+int
+double
+double
+</code></pre>
+</section>
+
+<section>
+<pre style="font-size:80%"><code class="java" data-trim data-noescape style="max-height:200%">
+  class AddBoxing {
+      public void go(Integer x) {
+          System.out.println("Integer");
+      }
+      public void go(long x) {
+          System.out.println("long");
+      }
+      public static void main(String[] args) {
+          int b = 5;
+          AddBoxing eo = new AddBoxing();
+          eo.go(b);
+	  //O que será impresso?
+      }
+  }
+</pre></code>
+</section>
+
+<section>
+	<h2>Resposta</h2>
+	<p style="color:red">O compilador <b>sempre</b> irá preferir ampliar uma variável do que realizar um boxing</p>
+<pre style="font-size:150%"><code class="java" data-trim data-noescape style="max-height:200%">
+long
+</code></pre>
+</section>
+
+				<section>
+					<h2>Varargs</h2>
+					<ul>
+						<blockquote>Permite fazer com que um método de uma classe recebe um número variável de parâmetros do mesmo tipo</blockquote>
+						<pre><code class="java" data-trim data-noescape style="max-height:200%">
+  public void metodoTeste(int... a) {  
+    /*
+        a implementacao tratara da variavel 'a'
+        como um array, tendo ou nao valores... 
+     */
+    for (int i = 0; i < a.length; i++) {
+        int j = a[i];
+        
+    }
+  }
+						</code></pre>
+					</ul>
+				</section>
+
+<section>
+<pre style="font-size:80%"><code class="java" data-trim data-noescape style="max-height:200%">
+  class AddVarargs {
+      public void go(int x, int y) {
+          System.out.println("int,int");
+      }
+      public void go(byte... x) {
+          System.out.println("byte...");
+      }
+      public static void main(String[] args) {
+          byte b = 5;
+          AddVarargs eo = new AddVarargs();
+          eo.go(b,b);
+	  //o que será impresso?
+      }
+  }
+</pre></code>
+</section>
+
+<section>
+	<h2>Resposta</h2>
+	<p style="color:red">A <b>AMPLIAÇÃO</b> tem precedência sob o VarArgs</p>
+<pre style="font-size:150%"><code class="java" data-trim data-noescape style="max-height:200%">
+"int,int"
+</code></pre>
+</section>
+
+<section>
+	<h2>Resumo</h2>
+	<ul>
+		<li>Não é possível realizar a ampliação de um wrapper</li>
+		<li>Ampliação tem precedência sob boxing</li>
+		<li>Ampliação tem precedência sob varargs</li>
+	<ul>
+</section>
+	
+				<section>
+					<h2>Exercício 1</h2>
+<pre><code class="java" data-trim data-noescape style="max-height:200%">
+		class Varargs {
+		    public void go(long... x) {
+		        System.out.println("long...");
+		    }
+		    public void go(Long... x) {
+		        System.out.println("Long...");
+		    }
+		    public static void main(String[] args) {
+		        int b = 5;
+		        Varargs eo = new Varargs();
+		        eo.go(b,b);
+			//o que será impresso?
+		    }
+		}
+</pre></code>
+				</section>
+
+				<section>
+					<h2>Exercício 2</h2>
+<pre><code class="java" data-trim data-noescape style="max-height:200%">
+		public class A {
+		  public void t(){
+		    System.out.println("A");
+		  }
+		}
+		public class B extends A {
+		  public void t() {
+		    System.out.println("B");
+		  }
+		}
+		public class C {
+		  public void t(A c){
+		    System.out.println("Classe C metodo A");
+		    c.t();
+		  }
+		  public void t(B c){
+		    System.out.println("Classe C metodo B");
+		    c.t();
+		  }
+		}
+		A c = new B();
+		C c2 = new C();
+		c2.t(c);
+</pre></code>
+				</section>
+				
+				<section>
+					<h2>Agradecimentos</h2>
+					<ul>
+					    <li>Professor Raphael de Souza Rosa Gomes (UFMT)</li>
+					    <li>Professora Karen Figueiredo (UFMT)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Links</h2>
+					<ul>
+					    <li><a href="http://www.linhadecodigo.com.br/artigo/3364/sobrecarga-de-metodos-com-recursos-de-ampliacaoautoboxing-e-var-args.aspx">Sobrecarga de métodos com recursos de ampliação,autoboxing e var-args</a></li>
+					    <li><a href="http://kamilladoria.blogspot.com.br/2010/08/sobrecarga-com-autoboxing-ampliacao-e.html">Sobrecarga com Autoboxing Ampliação e Var-arg</a></li>
+					    <li><a href="https://www.inf.unibz.it/~calvanese/teaching/04-05-ip/lecture-notes/uni04/node7.html">Wrapper classes for the primitive data types</a></li>
+					    <li><a href="http://www.devmedia.com.br/wrappers-em-java-aprenda-como-utilizar/30275">Wrappers em Java: Aprenda como utilizar</a></li>
+					</ul>
+				</section>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				slideNumber: true,
+				center: false,
+
+				transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
