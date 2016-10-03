@@ -122,14 +122,14 @@ public class ClasseTeste{
 				<section>
 					<h2>Sobrescrita</h2>
 					<pre style="max-height:620px;font-size:60%;"><code class="java" style="max-height:620px" data-trim data-noescape>
-public class Animal(){
+public class Animal{
    ...
    public void fala(){
 	System.out.println("Um animal");
    }
 }
 
-public class Cachorro(){
+public class Cachorro extends Animal{
    ...
    public void fala(){
 	System.out.println("Au au");
@@ -199,13 +199,13 @@ public class Animal(){
    }
 }
 
-public class Cachorro(){
+public class Cachorro extends Animal{
    public void fala(){
        System.out.println("Au au");
    }
 }
 
-public class Gato(){
+public class Gato extends Animal{
    public void fala(){
        System.out.println("Miau");
    }
@@ -221,13 +221,15 @@ public class Teste{
     public static void main(String args[]){
         Random randomGen = new Random();
 	Animal a;
+	int random = randomGen.nextInt(2);
 	for (int i=0; i<10; i++){
-            if (i==0){
+            if (random==0){
                 a = new Cachorro();
             }else{
                 a = new Gato();
             }
             a.fala(); // O que vai imprimir?
+			random = randomGen.nextInt(2);
         }
     }
 }
