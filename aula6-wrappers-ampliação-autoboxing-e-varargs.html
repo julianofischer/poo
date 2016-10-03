@@ -340,56 +340,73 @@ long
 		<li>Não é possível realizar a ampliação de um wrapper</li>
 		<li>Ampliação tem precedência sob boxing</li>
 		<li>Ampliação tem precedência sob varargs</li>
+		<li>Boxing tem precedência sob varargs</li>
+		<li>Ampliação -> Boxing -> varargs</li>
 	<ul>
 </section>
 	
-				<section>
-					<h2>Exercício 1</h2>
+
+<section>
+	<h2>Ampliação + Boxing</h2>
+	<p style="color:red">Não é permitido</p>
+
+<pre style="font-size:100%"><code class="java" data-trim data-noescape style="max-height:200%">
+byte b = 5;
+Integer i = b; //não é permitido
+</code></pre>
+
+</section>
+	
+
+<section>
+	<h2>Exercício 1</h2>
 <pre><code class="java" data-trim data-noescape style="max-height:200%">
-		class Varargs {
-		    public void go(long... x) {
-		        System.out.println("long...");
-		    }
-		    public void go(Long... x) {
-		        System.out.println("Long...");
-		    }
-		    public static void main(String[] args) {
-		        int b = 5;
-		        Varargs eo = new Varargs();
-		        eo.go(b,b);
-			//o que será impresso?
-		    }
-		}
-</pre></code>
-				</section>
+ public class Varargs {
+     public void go(long... x) {
+         System.out.println("long...");
+     }
+     public void go(Long... x) {
+         System.out.println("Long...");
+     }
+     public static void main(String[] args) {
+         int b = 5;
+         Varargs eo = new Varargs();
+         eo.go(b,b);
+         //o que será impresso?
+     }
+ }
+</code></pre>
+</section>
 
 				<section>
 					<h2>Exercício 2</h2>
 <pre><code class="java" data-trim data-noescape style="max-height:200%">
-		public class A {
-		  public void t(){
-		    System.out.println("A");
-		  }
-		}
-		public class B extends A {
-		  public void t() {
-		    System.out.println("B");
-		  }
-		}
-		public class C {
-		  public void t(A c){
-		    System.out.println("Classe C metodo A");
-		    c.t();
-		  }
-		  public void t(B c){
-		    System.out.println("Classe C metodo B");
-		    c.t();
-		  }
-		}
-		A c = new B();
-		C c2 = new C();
-		c2.t(c);
-</pre></code>
+
+public class A {
+    public void t() {
+        System.out.println("A");
+    }
+}
+public class B extends A {
+    public void t() {
+        System.out.println("B");
+    }
+}
+public class C {
+    public void t(A c) {
+        System.out.println("Classe C metodo A");
+        c.t();
+    }
+    public void t(B c) {
+        System.out.println("Classe C metodo B");
+        c.t();
+    }
+}
+A c = new B();
+C c2 = new C();
+c2.t(c)
+
+</code></pre>
 				</section>
 				
 				<section>
