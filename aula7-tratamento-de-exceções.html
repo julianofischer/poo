@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Programação Orientada a Objetos</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			function init()
+			{
+				var canvas = document.getElementById("canvas");
+				if(canvas.getContext){
+					var ctx = canvas.getContext("2d");
+					// Draw triangle
+					ctx.fillStyle="#A2322E";
+					ctx.beginPath();
+					// Draw a triangle location for each corner from x:y 100,110 -> 200,10 -> 300,110 (it will return to first point)
+					ctx.moveTo(275,110);
+					ctx.lineTo(375,10);
+					ctx.lineTo(475,110);
+					ctx.closePath();
+					ctx.fill();
+				}
+			}
+			onload=init;
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Programação Orientada a Objetos</h1>
+					<h3>Tratamento de Exceções</h3>
+					<p>
+						<small>Professor: Juliano Fischer Naves / <a href="mailto:juliano.naves@ifro.edu.br">juliano.naves@ifro.edu.br</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Exceção</h2>
+					<ul>
+						<blockquote>É um evento que ocorre durante a execução do programa e que interrompe o fluxo normal de execução deste programa.</blockquote>
+					</ul>
+				</section>
+
+				<section>
+					<blockquote>Quando um erro ocorre dentro de um método, o método cria um objeto e entrega-o ao ambiente de execução. O objeto, chamado objeto de exceção, contém informações sobre o erro, incluindo o tipo e o estado do programa no momento em que o erro ocorreru. Criar um objeto de exceção e entregá-lo ao sistema de execução é chamado de <b>lançar uma exceção</b> (throwing an exception).</blockquote>
+				</section>
+
+				<section>
+					<h2>Tratamento de Exceções</h2>
+					<ul>
+						<li>Permite que a execução de um programa continue mesmo após a ocorrência de um erro.</li>
+						<li>Útil para informar ao usuário sobre erros causados por informação de dados errados ou inválidos</li>
+						<li>Mascaramento de erros técnicos complexos ao usuário</li>
+						<li>Habilitam programadores a escrever códigos robustos e tolerantes a falhas</li>
+					</ul>
+				</section>
+
+<section>
+	<h2>Tipos de Exceções</h2>
+	<ul>
+	    <li>Uma exceção é representada por uma instância da classe <b>Throwable</b></li>
+	    <li>As classes <b>Exception</b> e <b>Error</b> são subclasses diretas de Throwable</li>
+	    <li>Classe Exception é a superclasse de todas as exceções das quais programas desejam se recuperar</li>
+	    <li>Classe Error é a superclasse de todas as exceções de que os programas comuns normalmente não esperam se recuperar</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Classe Exception</h2>
+	<ul>
+	    <li>Superclasse das exceções</li>
+	    <li>Checked exceptions (exceções verificadas)</li>
+            <li>Pode ser utilizada para um tratamento mais genérico de exceções</li>
+	</ul>
+</section>
+
+<section>
+    <img src="imgs/exceptions.jpg" alt="Hierarquia de exceções e erros." width="90%">
+</section>
+
+
+				<section>
+<pre style="font-size:100%"><code class="java" data-trim data-noescape style="max-height:620px">
+try {
+    //CÓDIGO
+} catch (Erro1 e1) {
+    //Código se houver erro1
+} catch (Erro2 e2) {
+    //Código se houver erro2
+} finally {
+    //Código que sera executado 
+    //independente se houver erro
+    //ou não
+}
+</code>
+</pre>				</section>
+
+<section>
+<pre style="font-size:50%"><code class="java" data-trim data-noescape style="max-height:200%">
+public class Divisao {
+    public int dividir(int numerador, int denominador) {
+        return numerador / denominador;
+    }
+    public static void main(String[] args) {
+        boolean continuar = false;
+        Scanner teclado = new Scanner(System.in);
+        do {
+            try {
+                System.out.println("Digite o numerador:");
+                int num = teclado.nextInt();
+
+                System.out.println("Digite o denominador:");
+                int den = teclado.nextInt();
+
+                Divisao divisao = new Divisao();
+                int res = divisao.dividir(num, den);
+                System.out.println("Resultado:" + res);
+                continuar = false;
+            } catch (ArithmeticException ex1) {
+                System.out.println("Erro divisAo por zero");
+            } catch (InputMismatchException ex2) {
+                System.out.println("Valor invalido, informe outro");
+            }
+        } while (continuar);
+    }
+}
+</code></pre>
+</section>
+
+<section>
+	<h2> Tratando Exceções </h2>
+	<ul>
+		<li>Bloco <b>try</b></li>
+		<ul><li>Delimita o bloco de código que pode originar exceções</li></ul>
+		<li>Blocos <b>catch</b></li>
+		<ul><li>Definem como determinada exceção deve ser tratada (o que deve ser executado se ela ocorrer)</li></ul>
+		<li>Bloco <b>finally</b></li>
+		<ul><li>Contém o código responsável pela finalização (fechamento de arquivos, liberação de recursos, ...)</li></ul>
+	<ul>
+</section>
+
+
+<section>
+	<h2>Lançando Exceptions</h2>
+	<ul>
+	    <li>Antes que você possa capturar (catch) uma exceção, algum trecho de código deve ter lançado uma exceção </li>
+	    <li>Uma exceção é lançada através do comando <b>throw</b></li>
+            <li>Sinaliza que naquele trecho de código ocorreu uma exceção</li>
+	</ul>
+</section>	
+
+<section>
+<h2> Lançando Exceções </h2>
+<pre style="font-size:100%"><code class="java" data-trim data-noescape style="max-height:200%">
+throw new Exception();
+</code></pre>
+</section>
+
+<section>
+	<h2>Propagando Exceções</h2>
+	<ul>
+	    <li>Embora toda exceção deva ser tratada, nem sempre é possível tratá-la no mesmo escopo do método que gerou esta exceção</li>
+	    <li>Neste caso, é possível propagar a exceção para um nível acima na pilha de invocações</li>
+            <li>Uma exceção é propagada através do comando throws</li>
+	</ul>
+</section>
+
+<section>
+<h2> Propagando Exceções </h2>
+<pre style="font-size:70%"><code class="java" data-trim data-noescape style="max-height:200%">
+public class Divisao {
+    public int dividir(int numerador, int denominador) 
+                                       throws Exception{
+        if(denominador == 0){
+            throw new Exception("Divisao por zero");
+        }
+        return numerador / denominador;
+    }
+}
+</code></pre>
+</section>
+
+<section>
+<h2>Criando uma Exceção</h2>
+<pre style="font-size:70%"><code class="java" data-trim data-noescape style="max-height:200%">
+public class NovoException extends Exception {
+    public NovoException() {
+        super("Nova Excecao");
+    }
+    public NovoException(String message) {
+        super(message);
+    }
+}
+public class Divisao {
+    public int dividir(int numerador, int denominador) 
+                                  throws NovoException {
+        if(denominador == 0){
+            throw new NovoException("Divisao por zero");
+        }
+        return numerador / denominador;
+    }
+}
+</code></pre>
+</section>
+
+<section>
+	<h2>Exercício 1</h2>
+	<ul>
+    	    <li>Escreva um programa que leia um valor real do teclado armazenando-o em uma variável do tipo float</li>
+  	    <li>Se o usuário digitar um valor que não possa ser convertido em um valor do tipo float, seu programa deve solicitar ao usuário que digite um novo valor</li>
+	    <li>Se o usuário não digitar um valor aceitável por três vezes, seu programa deve terminar imprimindo a mensagem "excedeu o limite de	tentativas."</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Exercício 2 (Entregar)</h2>
+	<ul>
+  	<li>Codifique três classes para representar possíveis exceções: erros (errors), avisos (warnings) e informações (informations).</li>
+  	<li>Cada classe de exceção deve conter um método construtor que recebe a mensagem a ser produzida e a concatena com uma das palavras: ERRO, AVISO e INFORMAÇÃO.</li>
+        <li>Se o usuário não digitar um valor aceitável por três vezes, seu programa deve terminar imprimindo a mensagem "excedeu o limite de tentativas."</li>
+	</ul>
+</section>
+<section>
+	<h2>Exercício 2 (continuação)</h2>
+	<ul>
+        <li>Faça um programa que realize o cadastro de um cliente com os atributos (nome, rg, cpf e idade).</li>
+	<li>O programa deve tratar as seguintes condições:</li>
+	<ul>
+            <li>Caso o campo nome esteja vazio deve lançar um Erro</li>
+	    <li>Caso o campo rg esteja vazio deve lançar um Warning</li>
+	    <li>Caso o campo cpf esteja vazio deve lançar um Warning</li>
+            <li>Se todos os campos estiverem preenchidos deverá lançar um Information</li>
+	</ul>
+</section>
+				<section>
+					<h2>Agradecimentos</h2>
+					<ul>
+					    <li>Professor Raphael de Souza Rosa Gomes (UFMT)</li>
+					    <li>Professora Karen Figueiredo (UFMT)</li>
+					</ul>
+				</section>
+
+<!--
+				<section>
+					<h2>Links</h2>
+					<ul>
+					    <li><a href="http://www.linhadecodigo.com.br/artigo/3364/sobrecarga-de-metodos-com-recursos-de-ampliacaoautoboxing-e-var-args.aspx">Sobrecarga de métodos com recursos de ampliação,autoboxing e var-args</a></li>
+					    <li><a href="http://kamilladoria.blogspot.com.br/2010/08/sobrecarga-com-autoboxing-ampliacao-e.html">Sobrecarga com Autoboxing Ampliação e Var-arg</a></li>
+					    <li><a href="https://www.inf.unibz.it/~calvanese/teaching/04-05-ip/lecture-notes/uni04/node7.html">Wrapper classes for the primitive data types</a></li>
+					    <li><a href="http://www.devmedia.com.br/wrappers-em-java-aprenda-como-utilizar/30275">Wrappers em Java: Aprenda como utilizar</a></li>
+					</ul>
+				</section>
+-->
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				slideNumber: true,
+				center: false,
+
+				transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
