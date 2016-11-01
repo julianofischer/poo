@@ -152,7 +152,9 @@ public class Divisao {
             } catch (InputMismatchException ex2) {
                 System.out.println("Valor invalido, informe outro");
             } finally {
-		teclado.next();
+		if (teclado.hasNext()){
+                    teclado.next();
+                }
 	    }
         } while (continuar);
     }
