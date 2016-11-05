@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Programação Orientada a Objetos</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			function init()
+			{
+				var canvas = document.getElementById("canvas");
+				if(canvas.getContext){
+					var ctx = canvas.getContext("2d");
+					// Draw triangle
+					ctx.fillStyle="#A2322E";
+					ctx.beginPath();
+					// Draw a triangle location for each corner from x:y 100,110 -> 200,10 -> 300,110 (it will return to first point)
+					ctx.moveTo(275,110);
+					ctx.lineTo(375,10);
+					ctx.lineTo(475,110);
+					ctx.closePath();
+					ctx.fill();
+				}
+			}
+			onload=init;
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Programação Orientada a Objetos</h1>
+					<h3>Classes Abstratas</h3>
+					<p>
+						<small>Professor: Juliano Fischer Naves / <a href="mailto:juliano.naves@ifro.edu.br">juliano.naves@ifro.edu.br</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Classe Abstrata</h2>
+						<blockquote>É uma classe que <b>não</b> pode ser instanciada, mas pode ser superclasse de outras classes. Uma classe abstrata <i>pode</i> conter métodos abstratos.</blockquote>
+				</section>
+
+				<section>
+					<h2>Método Abstrato</h2>
+						<blockquote>Um método abstrato é um método que é declarado <b>sem</b> uma implementação, ou seja, não contém chaves e é seguido por um ;</blockquote>
+						<pre style="font-size:100%"><code class="java" data-trim data-noescape style="max-height:620px">
+						abstract void fala();
+						</code></pre>
+				</section>
+
+				<section>
+					<h2>Classes Abstratas</h2>
+					<ul>
+						<li>Funcionam como um "molde".</li>
+						<li>Declaradas com a palavra chave <b>abstract</b></li>
+						<li>Podem conter métodos abstratos</li>
+						<li>Podem conter métodos concretos</li>
+						<li>Seu propósito não é o de ser diretamente instanciada, mas de servir como superclasse modelo para outras classes</li>
+					</ul>
+				</section>
+
+				<section>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+public abstract class FormaGeometrica{
+    private String cor;
+    public abstract double calcularArea();
+
+    public String getCor(){
+        return cor;
+    }
+
+    public void setCor(String c){
+        cor = c;
+    }
+}
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Classes Abstratas</h2>
+					<ul>
+						<li>Podemos criar subclasses da classe FormaGeometrica.</li>
+						<li>Nas subclasse é <b>obrigatória</b> a implementação dos métodos abstratos</li>
+						<li>Com isso, temos certeza que toda subclasse de FormaGeometrica implementa o método calcularArea</li>
+						<li>Uma classe que não é abstrata é chamada de <b>concreta</b></li>
+					</ul>
+				</section>
+
+				<section>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+public class Retangulo extends 
+                       FiguraGeometrica{
+    private double base;
+    private double altura;
+
+     public double calcularArea(){
+     	return base * altura;
+     }
+}
+</code></pre>
+				</section>
+
+				<section>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+public abstract class Pessoa{
+    private String nome;
+    private String CPF;
+    private String RG;
+    private Data dataDeNascimento;
+
+    ...
+
+    //getters e setters
+}
+</code></pre>
+				</section>
+
+				<section>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+public class Funcionario extends Pessoa{
+    private double salario;
+    ...
+
+    //getters e setters
+}
+</code></pre>
+				</section>
+
+				<section>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+public class Cliente extends Pessoa{
+    private String cartaoDeCredito;
+    ...
+
+    //getters e setters
+}
+</code></pre>
+				</section>
+
+				<section>
+				<h2>Exercício 1</h2>
+				<ul>
+				    <li>Implemente uma hierarquia de operações matemáticas</li>
+				    <li>O programa deve conter as classes:</li>
+				    <ul>
+				    	<li>Operação Matemática (abstrata)</li>
+				    	<li>Soma</li>
+				    	<li>Subtração</li>
+				    	<li>Multiplicação</li>
+				    	<li>Divisão</li>
+				    </ul>
+				    <li>Todas as classes devem conter o método calcula</li>
+				</ul>
+				</section>
+
+				<section>
+				<h2>Exercício 2</h2>
+				<ul>
+				    <li>Implemente uma hierarquia de classes que represente os funcionários de um escritório</li>
+				    <li>O programa deve conter as classes: <b>Gerente</b>, <b>Assistente</b> e <b>Vendedor</b></li>
+				    <li>A classe <b>Funcionário</b> deve conter um método abstrato <i>double calcSalario</i></li>
+				    <li>A classe <b>Funcionário</b> deve conter os atributos <b>nome</b>, <b>matrícula</b> e <b>salárioBase	</b></li>
+				</ul>
+				</section>
+
+				<section>
+				<ul>
+				    <li>Os salários são calculados da seguinte maneira</li>
+				    <ul>
+				    	<li>Gerentes recebem 2 vezes o salárioBase</li>
+				    	<li>Assistentes recebem o salárioBase</li>
+				    	<li>Vendedores recebem o salárioBase mais uma comissão que deve ser passada por parâmetro ao método construtor</li>
+				    </ul>
+				</ul>
+				</section>
+
+				<section>
+				<h2>Exercício (Entregar)</h2>
+				<ul>
+				    <li>Implemente uma hierarquia de formas geométricas:</li>
+				    <li>FormaGeometrica:</li>
+				    <ul>
+				    	<li>Forma bidimensional</li>
+				    	<ul>
+				    		<li>Círculo</li>
+				    		<li>Quadrado</li>
+				    		<li>Triângulo</li>
+				    	</ul>
+
+				    	<li>Forma tridimensional</li>
+				    	<ul>
+				    		<li>Esfera</li>
+				    		<li>Cubo</li>
+				    		<li>Tetraedro</li>
+				    	</ul>
+
+				    </ul>
+				</ul>
+				</section>
+
+				<section>
+					<ul>
+						<li>Formas bidimensionais devem conter os métodos:</li>
+						<ul>
+							<li>calculaArea</li>
+							<li>calculaPerímetro</li>
+						</ul>
+
+						<li>Formas tridimensionais devem conter os métodos:</li>
+						<ul>
+							<li>calculaArea</li>
+							<li>calculaVolume</li>
+						</ul>
+					</ul>
+				</section>
+
+
+				<section>
+					<h2>Links</h2>
+					<ul>
+					    <li><a href="http://docs.oracle.com/javase/tutorial/java/IandI/abstract.html">Abstract Methods and Classes</a></li>
+					    <li><a href="http://www.devmedia.com.br/polimorfismo-classes-abstratas-e-interfaces-fundamentos-da-poo-em-java/26387">Polimorfismo, classes abstratas e interfaces</a></li>
+					    <li><a href="http://www.devmedia.com.br/conceitos-classes-abstratas-programacao-orientada-a-objetos-parte-1/18812">Conceitos: classes abstratas</a></li>
+					    <li><a href="http://www.tiexpert.net/programacao/java/classes-abstratas.php">Classes abstratas e métodos abstratos</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Agradecimentos</h2>
+					<ul>
+					    <li>Professor Raphael de Souza Rosa Gomes (UFMT)</li>
+					    <li>Professora Karen Figueiredo (UFMT)</li>
+					</ul>
+				</section>
+
+<!--
+				<section>
+					<h2>Links</h2>
+					<ul>
+					    <li><a href="http://www.linhadecodigo.com.br/artigo/3364/sobrecarga-de-metodos-com-recursos-de-ampliacaoautoboxing-e-var-args.aspx">Sobrecarga de métodos com recursos de ampliação,autoboxing e var-args</a></li>
+					    <li><a href="http://kamilladoria.blogspot.com.br/2010/08/sobrecarga-com-autoboxing-ampliacao-e.html">Sobrecarga com Autoboxing Ampliação e Var-arg</a></li>
+					    <li><a href="https://www.inf.unibz.it/~calvanese/teaching/04-05-ip/lecture-notes/uni04/node7.html">Wrapper classes for the primitive data types</a></li>
+					    <li><a href="http://www.devmedia.com.br/wrappers-em-java-aprenda-como-utilizar/30275">Wrappers em Java: Aprenda como utilizar</a></li>
+					</ul>
+				</section>
+-->
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				slideNumber: true,
+				center: false,
+
+				transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
