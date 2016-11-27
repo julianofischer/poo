@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Programação Orientada a Objetos</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			function init()
+			{
+				var canvas = document.getElementById("canvas");
+				if(canvas.getContext){
+					var ctx = canvas.getContext("2d");
+					// Draw triangle
+					ctx.fillStyle="#A2322E";
+					ctx.beginPath();
+					// Draw a triangle location for each corner from x:y 100,110 -> 200,10 -> 300,110 (it will return to first point)
+					ctx.moveTo(275,110);
+					ctx.lineTo(375,10);
+					ctx.lineTo(475,110);
+					ctx.closePath();
+					ctx.fill();
+				}
+			}
+			onload=init;
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Programação Orientada a Objetos</h1>
+					<h3>Arquivos</h3>
+					<p>
+						<small>Professor: Juliano Fischer Naves / <a href="mailto:juliano.naves@ifro.edu.br">juliano.naves@ifro.edu.br</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Arquivos</h2>
+						<ul>
+							<li>Existem duas operações sobre arquivos</li>
+							<ul>
+								<li>Leitura</li>
+								<li>Escrita</li>
+							</ul>
+							<li>Diferentes S.O.s representam arquivos e caminhos de maneira diferente</li>
+							<ul>
+								<li>\ para Windows</li>
+								<li>/ para Linux</li>
+							</ul>
+						</ul>
+				</section>
+
+				<section>
+					<h2>Arquivos</h2>
+						<ul>
+							<li>Java utiliza a classe <b>java.io.File</b> para representar arquivos</li>
+						</ul>
+						<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+//No Windows
+File f = new File("C:\\pasta\\arq.txt");
+//No Linux
+File f = new File("/pasta/arq.txt");
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Arquivos</h2>
+						<ul>
+							<li><b>java.io.File</b> pode representar tanto arquivos quanto diretórios</li>
+						</ul>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+File a1 = new File("arq1.txt");
+File a2 = new File("C:","arq2.txt");
+File d = new File("C:");
+File a3 = new File(d, "arq3.txt");
+</code></pre>
+				</section>
+
+
+				<section>
+					<h2>Arquivos</h2>
+						<ul>
+							<li>São mais de 40 classes, divididas em</li>
+							<ul>
+							    <li>Fluxos de entrada (InputStreams)</li>
+							    <li>Fluxos de saída (OutputStreams)</li>
+							    <li>Leitores (Readers)</li>
+							    <li>Escritores (Writers)</li>
+							    <li>Arquivos de acesso aleatório (random access file)</li>
+							</ul>
+						</ul>
+				</section>
+
+				<section>
+					<h2>InputStream</h2>
+						<img src="imgs/hierarquia-inputstream.jpg"></img>
+				</section>
+
+
+				<section>
+					<h2>InputStream</h2>
+						<img src="imgs/datainputstream.jpg"></img>
+				</section>
+
+				<section>
+					<h2>Exemplo</h2>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+File file = new File("arquivo.txt");
+System.out.println(file.getCanonicalPath());
+FileInputStream fis = new FileInputStream(file);
+//lê um byte
+System.out.println(fis.read()); 
+//efetua a leitura com buffer
+BufferedInputStream bis = new BufferedInputStream(fis);
+System.out.println(bis.read());
+</code></pre>
+				</section>
+
+				<section>
+					<h2>FileInputStream vs BufferredInputStream</h2>
+					<ul>
+						<li><b>FileInputStream</b> lê um byte por vez do disco</li>
+						<li>Muitas chamadas a operação nativa do sistema operacional</li>
+						<li><b>BufferedInputStream</b> lê 8192 bytes e armazena em buffer (retorna só um)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>DataInputStream</h2>
+					<ul>
+						<li>Lê dados em forma de tipos primitivos em Java, que foram gravados com DataOutputStream</li>
+					</ul>
+				</section>				
+
+
+				<section>
+					<h2>DataInputStream</h2>
+<pre style="font-size:80%"><code class="java" data-trim data-noescape style="max-height:620px">
+DataOutputStream dos = 
+    new DataOutputStream(
+        new FileOutputStream("teste.txt"));
+for (int i = 0; i<10; i++){
+    dos.writeInt(i);
+}
+dos.close();        
+DataInputStream dis3 = 
+    new DataInputStream(
+        new BufferedInputStream(
+            new FileInputStream("teste.txt")));       
+while (dis3.available() > 0){
+    System.out.println(dis3.readInt());
+}
+dis3.close();
+</code></pre>
+				</section>
+
+
+				<section>
+					<h2>Reader</h2>
+						<img src="imgs/hierarquia-reader.jpg"></img>
+				</section>
+
+				<section>
+					<h2>Reader</h2>
+<pre style="font-size:100%"><code class="java" data-trim data-noescape style="max-height:620px">
+BufferedReader br = new BufferedReader(
+    new FileReader("arquivo.txt"));
+
+String line = br.readLine();
+while (line != null){
+    System.out.println(line);
+    line = br.readLine();
+}
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Output</h2>
+						<img src="imgs/hierarquia-outputstream.jpg"></img>
+				</section>
+
+				<section>
+					<h2>Output</h2>
+<pre style="font-size:100%"><code class="java" data-trim data-noescape style="max-height:620px">
+BufferedReader br = new BufferedReader(
+    new FileReader("arquivo.txt"));
+
+String line = br.readLine();
+while (line != null){
+    System.out.println(line);
+    line = br.readLine();
+}
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Writer</h2>
+						<img src="imgs/hierarquia-writer.jpg"></img>
+				</section>
+
+				<section>
+					<h2>Writer</h2>
+<pre style="font-size:100%"><code class="java" data-trim data-noescape style="max-height:620px">
+BufferedWriter bw = new BufferedWriter(new FileWriter("teste3.txt"));
+bw.write("Uma string");
+bw.write("Outra string");
+bw.write("Uma string com nova linha ao final\n");
+bw.write("testando...");
+bw.close();
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Serialização</h2>
+						<blockquote>Processo de salvar um objeto em um stream (fluxo)</blockquote>
+				</section>
+
+				<section>
+					<h2>Serialização</h2>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+public class Info implements Serializable{
+    private String texto;
+    private int numero;
+    //getters and setters
+
+    public String toString() {
+           return texto+","+numero;
+    }
+}
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Serialização</h2>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+Info i = new Info();
+i.setNumero(18);
+i.setTexto("Texto objeto 1");
+Info i2 = new Info();
+i2.setNumero(20);
+i2.setTexto("Texto objeto 2");
+        
+ObjectOutputStream oos = 
+    new ObjectOutputStream(
+       new FileOutputStream("saida.dat"));
+oos.writeObject(i);
+oos.writeObject(i2);
+oos.close();
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Serialização</h2>
+<pre style="font-size:90%"><code class="java" data-trim data-noescape style="max-height:620px">
+ObjectInputStream ois = 
+    new ObjectInputStream(
+        new FileInputStream("saida.dat"));
+
+Info x =  (Info)ois.readObject();
+System.out.println(x);
+
+x = (Info)ois.readObject();
+System.out.println(x);
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Exercício</h2>
+					<ul>
+						<li>Faça um programa Java que leia uma Seleção de um arquivo de texto</li>
+						<li>Uma seleção representa uma seleção de futebol e contém um conjunto de no mínimo 11 jogadores</li>
+						<li>Outros atributos podem ser: nome, país de origem, cor do uniforme, quantidade de títulos mundiais</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Agradecimentos</h2>
+					<ul>
+					    <li>Professor Raphael de Souza Rosa Gomes (UFMT)</li>
+					    <li>Professora Karen Figueiredo (UFMT)</li>
+					</ul>
+				</section>
+
+<!--
+				<section>
+					<h2>Links</h2>
+					<ul>
+					    <li><a href="http://www.linhadecodigo.com.br/artigo/3364/sobrecarga-de-metodos-com-recursos-de-ampliacaoautoboxing-e-var-args.aspx">Sobrecarga de métodos com recursos de ampliação,autoboxing e var-args</a></li>
+					    <li><a href="http://kamilladoria.blogspot.com.br/2010/08/sobrecarga-com-autoboxing-ampliacao-e.html">Sobrecarga com Autoboxing Ampliação e Var-arg</a></li>
+					    <li><a href="https://www.inf.unibz.it/~calvanese/teaching/04-05-ip/lecture-notes/uni04/node7.html">Wrapper classes for the primitive data types</a></li>
+					    <li><a href="http://www.devmedia.com.br/wrappers-em-java-aprenda-como-utilizar/30275">Wrappers em Java: Aprenda como utilizar</a></li>
+					</ul>
+				</section>
+-->
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				slideNumber: true,
+				center: false,
+
+				transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
