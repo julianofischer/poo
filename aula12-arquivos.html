@@ -213,14 +213,13 @@ while (line != null){
 				<section>
 					<h2>Output</h2>
 <pre style="font-size:100%"><code class="java" data-trim data-noescape style="max-height:620px">
-BufferedReader br = new BufferedReader(
-    new FileReader("arquivo.txt"));
+DataOutputStream dos = new DataOutpuStream(
+    new BufferedOutputStream(
+        new FileOutputStream("arq.txt")));
 
-String line = br.readLine();
-while (line != null){
-    System.out.println(line);
-    line = br.readLine();
-}
+    dos.writeBytes("Uma frase...");
+    dos.writeDouble(123.321);
+    dos.close();
 </code></pre>
 				</section>
 
