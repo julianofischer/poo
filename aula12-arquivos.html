@@ -231,7 +231,9 @@ DataOutputStream dos = new DataOutpuStream(
 				<section>
 					<h2>Writer</h2>
 <pre style="font-size:100%"><code class="java" data-trim data-noescape style="max-height:620px">
-BufferedWriter bw = new BufferedWriter(new FileWriter("teste3.txt"));
+BufferedWriter bw = 
+    new BufferedWriter(
+        new FileWriter("teste3.txt"));
 bw.write("Uma string");
 bw.write("Outra string");
 bw.write("Uma string com nova linha ao final\n");
